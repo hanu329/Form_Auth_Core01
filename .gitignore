@@ -11,7 +11,8 @@ Migrations
 #Program.cs
 
 
-Controllers
+#Controllers
+.gitignore
 Models
 Interfaces
 Services
