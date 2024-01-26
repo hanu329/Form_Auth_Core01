@@ -7,7 +7,7 @@ Dependencies
 Properties
 wwwroot
 Migrations
-appsettings.json
+#appsettings.json
 #Program.cs
 
 
