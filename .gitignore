@@ -14,7 +14,7 @@ Migrations
 #Controllers
 .gitignore
 #Models
-Interfaces
+#Interfaces
 Services
 Views
 bin 
