@@ -1,0 +1,20 @@
+﻿FormAuthCore.csproj
+FormAuthCore.csproj.user
+appsettings.development.json
+
+Connected Services
+Dependencies
+Properties
+wwwroot
+Migrations
+appsettings.json
+#Program.cs
+
+
+Controllers
+Models
+Interfaces
+Services
+Views
+bin 
+obj
