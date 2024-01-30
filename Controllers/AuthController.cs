@@ -1,7 +1,6 @@
 ﻿using FormAuthCore.Models;
 using Microsoft.AspNetCore.Mvc;
 using FormAuthCore.Interfaces;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace FormAuthCore.Controllers
 {
@@ -14,7 +13,7 @@ namespace FormAuthCore.Controllers
         {
             _auth = auth;
         }
-       
+
         [HttpPost("login")]
         public string Login([FromBody] LoginRequest obj)
         {

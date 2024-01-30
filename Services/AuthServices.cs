@@ -5,6 +5,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using FormAuthCore.Interfaces;
+using Microsoft.CodeAnalysis.Scripting;
 
 
 namespace FormAuthCore.Services
@@ -28,6 +29,11 @@ namespace FormAuthCore.Services
 
         public User AddUser(User user)
         {
+            //var pwd = ASCIIEncoding.ASCII.GetBytes(user.Password);
+            //var encPwd = Convert.ToBase64String(pwd);
+
+            // user.Password = encPwd;
+           user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
             var addedUser = _context.AuthUsers.Add(user);
             _context.SaveChanges();
             return addedUser.Entity;
@@ -62,9 +68,18 @@ namespace FormAuthCore.Services
 
         public string Login(LoginRequest loginRequest)
         {
+            // var encPwd = Convert.FromBase64String(loginRequest.Password);
+            //var decryptPass = ASCIIEncoding.ASCII.GetString(loginRequest.Password);
+      
             if (loginRequest.Username != null && loginRequest.Password != null)
             {
-                var user = _context.AuthUsers.SingleOrDefault(s => s.Username == loginRequest.Username && s.Password == loginRequest.Password);
+               // &&s.Password==loginRequest.Password
+                var user = _context.AuthUsers.SingleOrDefault(s => s.Username == loginRequest.Username);
+                var isvalid = BCrypt.Net.BCrypt.Verify(loginRequest.Password, user.Password);
+                //if(!isValid)
+                //{
+                //    throw new Exception("Invlid Password!");
+                //}
                 if (user != null)
                 {
                     var claims = new List<Claim> {
@@ -72,9 +87,9 @@ namespace FormAuthCore.Services
                         new Claim("Id", user.Id.ToString()),
                         new Claim("UserName", user.Name)
                     };
-                    var userRoles = _context.UserRoles.Where(u => u.UserId == user.Id).ToList();
-                    var roleIds = userRoles.Select(s => s.RoleId).ToList();
-                    var roles = _context.Roles.Where(r => roleIds.Contains(r.Id)).ToList();
+                    var userRoles = _context.UserRoles.Where(u => u.UserId == user.Id).ToList(); //[{1:2},{1,3}]
+                    var roleIds = userRoles.Select(s => s.RoleId).ToList(); //[2,3]
+                    var roles = _context.Roles.Where(r => roleIds.Contains(r.Id)).ToList(); //[{id=2:Name="cust"},{3:"emp"}]
                     foreach (var role in roles)
                     {
                         claims.Add(new Claim(ClaimTypes.Role, role.Name));

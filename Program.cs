@@ -21,7 +21,7 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectio
 //    .AddCookie("MyCookieAuthenticationScheme", options =>
 //    {
 //        options.Cookie.HttpOnly = true;
-//        options.ExpireTimeSpan = TimeSpan.FromMinutes(2);
+//        options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
 //        options.LoginPath = "/UserAuth/Login"; // Customize the login path
 //        //options.AccessDeniedPath = "/Account/AccessDenied"; // Customize the access denied path
 //    });

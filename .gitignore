@@ -12,7 +12,7 @@ Migrations
 
 
 #Controllers
-.gitignore
+#.gitignore
 #Models
 #Interfaces
 #Services

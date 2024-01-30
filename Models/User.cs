@@ -15,3 +15,4 @@ namespace FormAuthCore.Models
         public string Password { get; set; }
     }
 }
+
